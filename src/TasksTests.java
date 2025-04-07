@@ -1,9 +1,9 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Comparator;
-import java.util.HashSet;
+import java.util.*;
 
+import static java.util.stream.Collectors.groupingBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -98,5 +98,25 @@ public class TasksTests {
                         (int) c.getStudents().stream().filter(f -> (s.getFriends().containsKey(f)))
                                 .count() / 2).sum()).sum();
         assertEquals(solution, count);
+    }
+
+    @Test
+    void task7() {
+        var studentsListList = tasks.task7();
+        if (studentsListList == null) {
+            // The user has not attempted the problem, skip it
+            assumeTrue(false);
+            return;
+        }
+
+        // This one is quite complex, there is probably a better solution
+        var solution = university.getStudents().stream().collect(groupingBy(Student::getGrade)).entrySet().stream().toList()
+                .stream().map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(),
+                        entry.getValue().stream().sorted((a, b) -> Float.compare(a.getGpa(), b.getGpa())).toList())).toList();
+        assertEquals(solution.size(), studentsListList.size());
+        assertTrue(solution.stream().allMatch(s -> studentsListList.stream().map(AbstractMap.SimpleEntry::getKey).toList().contains(s.getKey())));
+        solution.forEach(entry -> assertEquals(entry.getValue(),
+                studentsListList.stream().filter(ll -> ll.getKey() == entry.getKey())
+                        .findFirst().get().getValue().stream().toList()));
     }
 }

@@ -1,5 +1,9 @@
+import java.util.AbstractMap;
 import java.util.HashSet;
 import java.util.List;
+
+import static java.util.stream.Collectors.groupingBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This is the main class where you will work in.
@@ -49,4 +53,12 @@ public class Tasks {
     }
 
     // Count how many students there are that do not have a unique name
+
+    /**
+     * Count all pairs of friends that are taking a course together.
+     * If two friends are taking two courses together count them twice.
+     */
+    public List<AbstractMap.SimpleEntry<Grade, List<Student>>> task7() {
+        return null;
+    }
 }
