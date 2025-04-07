@@ -36,11 +36,11 @@ public class University {
 
         // One line of code using lambda expressions
         students.forEach(s -> IntStream.range(0, random.nextInt(0, 5))
-                .forEach(_ -> s.makeFriend(students.get(random.nextInt(0, students.size())), random.nextInt(0, 100))));
+                .forEach(a -> s.makeFriend(students.get(random.nextInt(0, students.size())), random.nextInt(0, 100))));
 
         // -- Enroll Students--
         students.forEach(s -> IntStream.range(0, random.nextInt(3,7))
-                .forEach(_ -> courses.get(random.nextInt(0, courses.size())).enrollStudent(s)));
+                .forEach(a -> courses.get(random.nextInt(0, courses.size())).enrollStudent(s)));
     }
 
     public ArrayList<Student> getStudents() {

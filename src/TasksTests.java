@@ -101,6 +101,21 @@ public class TasksTests {
     }
 
     @Test
+    void task6() {
+        var count = tasks.task6();
+        if (count == null) {
+            // The user has not attempted the problem, skip it
+            assumeTrue(false);
+            return;
+        }
+
+        // There are many different ways you can solve this one
+        var studentSet = new HashSet<>(university.getStudents().stream().map(Student::getName).toList());
+        var solution = (int) university.getStudents().stream().map(Student::getName).filter(studentSet::contains).count();
+        assertEquals(solution, count);
+    }
+
+    @Test
     void task7() {
         var studentsListList = tasks.task7();
         if (studentsListList == null) {
