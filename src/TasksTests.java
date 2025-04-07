@@ -1,10 +1,8 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -59,11 +57,46 @@ public class TasksTests {
             return;
         }
 
-        Student solution = university.getStudents().stream().min(Comparator.comparingDouble(Student::getGpa)).get();
+        var solution = university.getStudents().stream().min(Comparator.comparingDouble(Student::getGpa)).get();
         if (student != solution) {
             // There could be two students with the exact same gpa
             assertTrue(student.getGpa() <= solution.getGpa());
         }
+    }
 
+    @Test
+    void task4() {
+        var courses = tasks.task4();
+        if (courses == null) {
+            // The user has not attempted the problem, skip it
+            assumeTrue(false);
+            return;
+        }
+
+        var coursesSet = new HashSet<Course>(courses);
+        var solution = university.getCourses().stream().filter(c ->
+                c.getStudents().stream().filter(s ->
+                                s.getGrade() == Grade.Masters || s.getGrade() == Grade.Phd)
+                        .count() >= 3).toList();
+        assertEquals(solution.size(), courses.size());
+        solution.forEach(s -> assertTrue(coursesSet.contains(s)));
+    }
+
+    @Test
+    void task5() {
+        var count = tasks.task5();
+        if (count == null) {
+            // The user has not attempted the problem, skip it
+            assumeTrue(false);
+            return;
+        }
+
+        // There are many different ways you can solve this one
+        var solution = university.getCourses().stream().mapToInt(c ->
+                c.getStudents().stream().mapToInt(s ->
+                        // Count all friends each student has in this class and divide it by 2
+                        (int) c.getStudents().stream().filter(f -> (s.getFriends().containsKey(f)))
+                                .count() / 2).sum()).sum();
+        assertEquals(solution, count);
     }
 }

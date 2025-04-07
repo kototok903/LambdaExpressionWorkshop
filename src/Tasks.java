@@ -1,4 +1,3 @@
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -31,6 +30,21 @@ public class Tasks {
      * Find the student who has the lowest GPA
      */
     public Student task3() {
+        return null;
+    }
+
+    /**
+     * Find all courses with at least 3 graduate students (Masters and Phd).
+     */
+    public List<Course> task4() {
+        return null;
+    }
+
+    /**
+     * Count all pairs of friends that are taking a course together.
+     * If two friends are taking two courses together count them twice.
+     */
+    public Integer task5() {
         return null;
     }
 
