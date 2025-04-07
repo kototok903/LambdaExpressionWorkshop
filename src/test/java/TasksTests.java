@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+/**
+ * Here are the solutions to each of the tasks.
+ * The tasks return null by default so we skip every test where the task returns a null value.
+ */
 public class TasksTests {
     static University university;
     static Tasks tasks;
