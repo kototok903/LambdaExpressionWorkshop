@@ -1,6 +1,7 @@
 import java.util.AbstractMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * This is the main class where you will work in.
@@ -91,8 +92,16 @@ public class Tasks {
     /**
      * Count all pairs of friends that are taking a course together.
      * If two friends are taking two courses together count them twice.
+     * Note: This is a hard one to solve.
      */
     public List<AbstractMap.SimpleEntry<Grade, List<Student>>> task7() {
+        return null;
+    }
+
+    /**
+     * Return all students that satisfy the given predicate.
+     */
+    public List<Student> task8(Predicate<Student> operation) {
         return null;
     }
 }

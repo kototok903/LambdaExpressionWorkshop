@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import java.util.AbstractMap;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
+import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.groupingBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -158,5 +160,22 @@ public class TasksTests {
         solution.forEach(entry -> assertEquals(entry.getValue(),
                 studentsListList.stream().filter(ll -> ll.getKey() == entry.getKey())
                         .findFirst().get().getValue().stream().toList()));
+    }
+
+    @Test
+    void task8() {
+        Predicate<Student> operation = (s) -> s.getName().toLowerCase().charAt(0) == 'S' && s.getFriends().size() > 2;
+        var studentsListList = tasks.task8(operation);
+        if (studentsListList == null) {
+            // The user has not attempted the problem, skip it
+            assumeTrue(false);
+            return;
+        }
+
+        var studentSet = new HashSet<>(studentsListList);
+        List<Student> solution = university.getStudents().stream().filter(operation).toList();
+        assertEquals(solution.size(), studentSet.size());
+        assertTrue(studentSet.containsAll(solution));
+
     }
 }
