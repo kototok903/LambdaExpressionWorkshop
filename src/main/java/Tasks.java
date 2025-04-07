@@ -1,4 +1,5 @@
 import java.util.AbstractMap;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Predicate;
@@ -43,6 +44,19 @@ public class Tasks {
         return university.getStudents().stream().mapToDouble(s -> s.getGpa()).sum() / university.getStudents().size();
         // Alternative variant using method reference
         //   return (float) university.getStudents().stream().mapToDouble(Student::getGpa).sum();
+    }
+
+    public List<Student> example2Comp() {
+        return university.getStudents().stream().sorted(new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return Float.compare(o1.getGpa(), o2.getGpa());
+            }
+        }).toList();
+    }
+
+    public List<Student> example2() {
+        return university.getStudents().stream().sorted((a, b) -> Float.compare(a.getGpa(), b.getGpa())).toList();
     }
 
 

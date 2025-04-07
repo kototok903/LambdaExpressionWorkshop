@@ -44,6 +44,20 @@ public class TasksTests {
                 / university.getStudents().size(), tasks.example1Lambda(), 0.00001);
     }
 
+    @Test
+    void example2Comp() {
+        List<Student> students = university.getStudents();
+        students.sort((a,b) -> Float.compare(a.getGpa(), b.getGpa()));
+        assertEquals(students, tasks.example2Comp());
+    }
+
+    @Test
+    void example2() {
+        List<Student> students = university.getStudents();
+        students.sort((a,b) -> Float.compare(a.getGpa(), b.getGpa()));
+        assertEquals(students, tasks.example2());
+    }
+
 
     @Test
     void task1() {
