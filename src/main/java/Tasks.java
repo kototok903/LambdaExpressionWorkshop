@@ -12,6 +12,38 @@ public class Tasks {
         this.university = university;
     }
 
+    /**
+     * Find the average GPA of all students.
+     * This implementation uses a for loop.
+     */
+    public double example1For() {
+        double sum = 0;
+        for (int i = 0; i < university.getStudents().size(); i++) {
+            sum += university.getStudents().get(i).getGpa();
+        }
+        return sum / university.getStudents().size();
+    }
+
+    /**
+     * Find the average GPA of all students
+     */
+    public double example1Foreach() {
+        double sum = 0;
+        for (var student : university.getStudents()) {
+            sum += student.getGpa();
+        }
+        return sum / university.getStudents().size();
+    }
+
+    /**
+     * Find the average GPA of all students
+     */
+    public double example1Lambda() {
+        return university.getStudents().stream().mapToDouble(s -> s.getGpa()).sum() / university.getStudents().size();
+        // Alternative variant using method reference
+        //   return (float) university.getStudents().stream().mapToDouble(Student::getGpa).sum();
+    }
+
 
     /**
      * Give a HashSet that contains every student.

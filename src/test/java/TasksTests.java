@@ -25,6 +25,25 @@ public class TasksTests {
     }
 
     @Test
+    void example1For() {
+        assertEquals((float) university.getStudents().stream().mapToDouble(Student::getGpa).sum()
+                / university.getStudents().size(), tasks.example1For(), 0.00001);
+    }
+
+    @Test
+    void example1Foreach() {
+        assertEquals((float) university.getStudents().stream().mapToDouble(Student::getGpa).sum()
+                / university.getStudents().size(), tasks.example1Foreach(), 0.00001);
+    }
+
+    @Test
+    void example1Lambda() {
+        assertEquals((float) university.getStudents().stream().mapToDouble(Student::getGpa).sum()
+                / university.getStudents().size(), tasks.example1Lambda(), 0.00001);
+    }
+
+
+    @Test
     void task1() {
         var students = tasks.task1();
         if (students == null) {
@@ -65,8 +84,8 @@ public class TasksTests {
 
         var solution = university.getStudents().stream().min(Comparator.comparingDouble(Student::getGpa)).get();
         if (student != solution) {
-            // There could be two students with the exact same gpa
-            assertTrue(student.getGpa() <= solution.getGpa());
+            // There could be two students with the exact same gpa. We should account for floating point precision as well.
+            assertTrue(student.getGpa() <= solution.getGpa() + 0.0000001);
         }
     }
 
