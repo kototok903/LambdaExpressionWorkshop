@@ -11,7 +11,7 @@ public class University {
     }
 
     University() {
-        Random random = new Random();
+        var random = new Random();
         students = new ArrayList<>();
         courses = new ArrayList<>();
 

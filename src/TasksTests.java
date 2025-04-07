@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,30 +22,48 @@ public class TasksTests {
 
     @Test
     void task1() {
-        HashSet<Student> students = tasks.task1();
+        var students = tasks.task1();
         if (students == null) {
             // The user has not attempted the problem, skip it
             assumeTrue(false);
             return;
         }
 
-        HashSet<Student> solution = new HashSet<>(university.getStudents());
+        var solution = new HashSet<>(university.getStudents());
         assertEquals(solution.size(), students.size());
         solution.forEach(s -> assertTrue(students.contains(s)));
     }
 
     @Test
-    void task5() {
-        List<Student> students = tasks.task5();
+    void task2() {
+        var students = tasks.task2();
         if (students == null) {
             // The user has not attempted the problem, skip it
             assumeTrue(false);
             return;
         }
 
-        HashSet<Student> studentSet = new HashSet<>(students);
-        List<Student> solution = university.getStudents().stream().filter(s -> s.getGpa() >= 3.5f).toList();
+        var studentSet = new HashSet<>(students);
+        var solution = university.getStudents().stream().filter(s -> s.getGpa() >= 3.5f).toList();
         assertEquals(solution.size(), studentSet.size());
         solution.forEach(s -> assumeTrue(studentSet.contains(s)));
+    }
+
+
+    @Test
+    void task3() {
+        var student = tasks.task3();
+        if (student == null) {
+            // The user has not attempted the problem, skip it
+            assumeTrue(false);
+            return;
+        }
+
+        Student solution = university.getStudents().stream().min(Comparator.comparingDouble(Student::getGpa)).get();
+        if (student != solution) {
+            // There could be two students with the exact same gpa
+            assertTrue(student.getGpa() <= solution.getGpa());
+        }
+
     }
 }
