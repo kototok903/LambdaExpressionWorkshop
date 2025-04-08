@@ -1,8 +1,5 @@
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.groupingBy;
 
 /**
  * This is the main class where you will work in.
