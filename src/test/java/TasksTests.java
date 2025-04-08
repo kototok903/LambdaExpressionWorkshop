@@ -135,7 +135,7 @@ public class TasksTests {
                 c.getStudents().stream().mapToInt(s ->
                         // Count all friends each student has in this class and divide it by 2
                         (int) c.getStudents().stream().filter(f -> (s.getFriends().containsKey(f)))
-                                .count() / 2).sum()).sum();
+                                .count()).sum()).sum() / 2;
         assertEquals(solution, count);
     }
 
