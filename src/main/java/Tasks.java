@@ -1,8 +1,8 @@
-import java.util.AbstractMap;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * This is the main class where you will work in.
@@ -104,11 +104,11 @@ public class Tasks {
     }
 
     /**
-     * Count all pairs of friends that are taking a course together.
-     * If two friends are taking two courses together count them twice.
+     * Group each student by grade and sort each group based on their GPA by increasing value.
      * Note: This is a hard one to solve.
+     * Hint: Use .collect(groupingBy()) and .collect(Collectors.toMap())
      */
-    public List<AbstractMap.SimpleEntry<Grade, List<Student>>> task7() {
+    public Map<Grade, List<Student>> task7() {
         return null;
     }
 

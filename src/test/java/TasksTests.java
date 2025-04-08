@@ -1,11 +1,9 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.AbstractMap;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,14 +45,14 @@ public class TasksTests {
     @Test
     void example2Comp() {
         List<Student> students = university.getStudents();
-        students.sort((a,b) -> Float.compare(a.getGpa(), b.getGpa()));
+        students.sort((a, b) -> Float.compare(a.getGpa(), b.getGpa()));
         assertEquals(students, tasks.example2Comp());
     }
 
     @Test
     void example2() {
         List<Student> students = university.getStudents();
-        students.sort((a,b) -> Float.compare(a.getGpa(), b.getGpa()));
+        students.sort((a, b) -> Float.compare(a.getGpa(), b.getGpa()));
         assertEquals(students, tasks.example2());
     }
 
@@ -158,8 +156,8 @@ public class TasksTests {
 
     @Test
     void task7() {
-        var studentsListList = tasks.task7();
-        if (studentsListList == null) {
+        var studentsGroupedByGrade = tasks.task7();
+        if (studentsGroupedByGrade == null) {
             // The user has not attempted the problem, skip it
             assumeTrue(false);
             return;
@@ -167,13 +165,11 @@ public class TasksTests {
 
         // This one is quite complex, there is probably a better solution
         var solution = university.getStudents().stream().collect(groupingBy(Student::getGrade)).entrySet().stream().toList()
-                .stream().map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey(),
-                        entry.getValue().stream().sorted((a, b) -> Float.compare(a.getGpa(), b.getGpa())).toList())).toList();
-        assertEquals(solution.size(), studentsListList.size());
-        assertTrue(solution.stream().allMatch(s -> studentsListList.stream().map(AbstractMap.SimpleEntry::getKey).toList().contains(s.getKey())));
-        solution.forEach(entry -> assertEquals(entry.getValue(),
-                studentsListList.stream().filter(ll -> ll.getKey() == entry.getKey())
-                        .findFirst().get().getValue().stream().toList()));
+                .stream().collect(Collectors.toMap(Map.Entry::getKey,
+                        e -> e.getValue().stream().sorted((a, b) -> Float.compare(a.getGpa(), b.getGpa())).toList()));
+        assertEquals(solution.size(), studentsGroupedByGrade.size());
+        assertTrue(solution.entrySet().stream().allMatch(s -> studentsGroupedByGrade.containsKey(s.getKey())));
+        solution.forEach((key, value) -> assertEquals(value, studentsGroupedByGrade.get(key)));
     }
 
     @Test
