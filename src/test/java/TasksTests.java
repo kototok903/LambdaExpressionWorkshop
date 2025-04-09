@@ -149,8 +149,19 @@ public class TasksTests {
         }
 
         // There are many different ways you can solve this one
-        var studentSet = new HashSet<>(university.getStudents().stream().map(Student::getName).toList());
-        var solution = (int) university.getStudents().stream().map(Student::getName).filter(studentSet::contains).count();
+        var nameCountMap = new HashMap<String, Integer>();
+        university.getStudents().stream().map(Student::getName).forEach(name ->
+                nameCountMap.put(name, nameCountMap.getOrDefault(name, 0) + 1));
+        var solution = (int) university.getStudents().stream().map(Student::getName).filter(name ->
+                nameCountMap.get(name) > 1).count();
+
+        // Alternative solution which is one-line, but runs in O(n^2)
+        // var solution = (int) university.getStudents().stream()
+        //         .filter(s1 -> university.getStudents().stream()
+        //                 .filter(s2 -> s1.getName().equals(s2.getName()))
+        //                 .count() > 1)
+        //         .count();
+
         assertEquals(solution, count);
     }
 
